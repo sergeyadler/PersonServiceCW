@@ -1,0 +1,13 @@
+package cohort_65.java.personserviceclasswork;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class PersonServiceClassWorkApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(PersonServiceClassWorkApplication.class, args);
+    }
+
+}
