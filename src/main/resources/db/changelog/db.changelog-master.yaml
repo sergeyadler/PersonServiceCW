@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/changelog/changes/002-seed-persons.sql
   - include:
       file: db/changelog/changes/003-rollback-seed.sql
+  - include:
+      file: db/changelog/changes/004-create_child-and-employee.yaml

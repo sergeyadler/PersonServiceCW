@@ -3,11 +3,11 @@ package cohort_65.java.personserviceclasswork.person.controller;
 import cohort_65.java.personserviceclasswork.person.dto.AddressDto;
 import cohort_65.java.personserviceclasswork.person.dto.CityPopulationDto;
 import cohort_65.java.personserviceclasswork.person.dto.PersonDto;
+import cohort_65.java.personserviceclasswork.person.dto.ChildDto;
+import cohort_65.java.personserviceclasswork.person.dto.EmployeeDto;
 import cohort_65.java.personserviceclasswork.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/person")
@@ -15,7 +15,7 @@ import java.util.List;
 public class PersonController {
     final PersonService personService;
     @PostMapping
-    public boolean addPerson(@RequestBody PersonDto personDto) {
+    public PersonDto addPerson(@RequestBody PersonDto personDto) {
         return personService.addPerson(personDto);
 
     }
@@ -56,5 +56,14 @@ public class PersonController {
         return personService.getCityPopulation();
     }
 
+    @GetMapping("/salary/{min}/{max}")
+    public Iterable<EmployeeDto> findEmployeeBySalary(@PathVariable Integer min, @PathVariable Integer max) {
+        return personService.findEmployeeBySalary(min,max);
+    }
 
+
+    @GetMapping("/children")
+    public Iterable<ChildDto> findAllChildren() {
+        return personService.findAllChildren();
+    }
 }

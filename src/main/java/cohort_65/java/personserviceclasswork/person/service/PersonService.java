@@ -1,12 +1,10 @@
 package cohort_65.java.personserviceclasswork.person.service;
 
-import cohort_65.java.personserviceclasswork.person.dto.AddressDto;
-import cohort_65.java.personserviceclasswork.person.dto.CityPopulationDto;
-import cohort_65.java.personserviceclasswork.person.dto.PersonDto;
+import cohort_65.java.personserviceclasswork.person.dto.*;
 
 public interface PersonService {
 
-    boolean addPerson(PersonDto newPersonDto);
+    PersonDto addPerson(PersonDto newPersonDto);
 
     PersonDto findPersonById(Integer id);
 
@@ -22,4 +20,11 @@ public interface PersonService {
 
     PersonDto[] findPersonsBetweenAge(Integer from, Integer to);
 
-    Iterable<CityPopulationDto> getCityPopulation();}
+    Iterable<CityPopulationDto> getCityPopulation();
+
+    Iterable<EmployeeDto> findEmployeeBySalary(Integer min, Integer max);
+
+    Iterable<ChildDto> findAllChildren();
+
+    void run(String ...args) throws Exception ;
+}
