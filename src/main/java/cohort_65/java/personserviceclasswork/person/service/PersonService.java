@@ -4,7 +4,7 @@ import cohort_65.java.personserviceclasswork.person.dto.*;
 
 public interface PersonService {
 
-    PersonDto addPerson(PersonDto newPersonDto);
+    boolean addPerson(PersonDto newPersonDto);
 
     PersonDto findPersonById(Integer id);
 

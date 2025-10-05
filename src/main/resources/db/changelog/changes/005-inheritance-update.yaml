@@ -1,0 +1,97 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1759308847299-1
+      author: Sergey
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropTable:
+            tableName: person
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_child
+                  name: id
+                  type: INT
+              - column:
+                  name: kindergarten
+                  type: VARCHAR(255)
+            tableName: child
+  - changeSet:
+      id: 1759308847299-2
+      author: Sergey
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_employee
+                  name: id
+                  type: INT
+              - column:
+                  name: company
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: salary
+                  type: INT
+            tableName: employee
+  - changeSet:
+      id: 1759308847299-3
+      author: Sergey
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_person
+                  name: id
+                  type: INT
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: birth_date
+                  type: DATE
+              - column:
+                  name: city
+                  type: VARCHAR(255)
+              - column:
+                  name: street
+                  type: VARCHAR(255)
+              - column:
+                  name: building
+                  type: INT
+            tableName: person
+  - changeSet:
+      id: 1759308847299-4
+      author: Sergey
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: id
+            baseTableName: child
+            constraintName: FK_CHILD_ON_ID
+            referencedColumnNames: id
+            referencedTableName: person
+  - changeSet:
+      id: 1759308847299-5
+      author: Sergey
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: id
+            baseTableName: employee
+            constraintName: FK_EMPLOYEE_ON_ID
+            referencedColumnNames: id
+            referencedTableName: person
+

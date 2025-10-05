@@ -20,30 +20,30 @@ import java.time.LocalDate;
 public class PersonServiceImpl implements PersonService, CommandLineRunner {
     final PersonRepository personRepository;
     final ModelMapper modelMapper;
+    final PersonModelDtoMapper mapper;
 
     @Override
     @Transactional
-    public PersonDto addPerson(PersonDto newPersonDto) {
+    public boolean addPerson(PersonDto newPersonDto) {
         if (personRepository.existsById(newPersonDto.getId())) {
-            return null;
+            return false;
         }
-        Person person = modelMapper.map(newPersonDto, Person.class);
-        person = personRepository.save(person);
-        return mapToCorrectDto(person);
+        personRepository.save(mapper.mapToModel(newPersonDto));
+        return true;
     }
 
     @Override
     @Transactional(readOnly = true)
     public PersonDto findPersonById(Integer id) {
         Person person = personRepository.findById(id).orElseThrow(PersonNotFoundException::new);
-        return mapToCorrectDto(person);
+        return mapper.mapToDto(person);
     }
 
     @Override
     public PersonDto deletePersonById(Integer id) {
         Person person = personRepository.findById(id).orElseThrow(PersonNotFoundException::new);
         personRepository.delete(person);
-        return mapToCorrectDto(person);
+        return mapper.mapToDto(person);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class PersonServiceImpl implements PersonService, CommandLineRunner {
         Person person = personRepository.findById(id).orElseThrow(PersonNotFoundException::new);
         person.setName(name);
         personRepository.save(person);
-        return mapToCorrectDto(person);
+        return mapper.mapToDto(person);
 
     }
 
@@ -64,7 +64,7 @@ public class PersonServiceImpl implements PersonService, CommandLineRunner {
         }
         person.setAddress(modelMapper.map(addressDto, Address.class));
         person = personRepository.save(person);
-        return mapToCorrectDto(person);
+        return mapper.mapToDto(person);
     }
 
     @Override
@@ -113,6 +113,7 @@ public class PersonServiceImpl implements PersonService, CommandLineRunner {
     }
 
 
+
     private PersonDto mapToCorrectDto(Person person) {
         if (person instanceof Employee) {
             return modelMapper.map(person, EmployeeDto.class);
@@ -127,7 +128,7 @@ public class PersonServiceImpl implements PersonService, CommandLineRunner {
 
     @Override
 
-    public void run(String... args) throws Exception {
+    public void run(String... args){
         if (personRepository.count() == 0) {
             Person person = new Person(
                     1000, "John", LocalDate.now().minusYears(20),

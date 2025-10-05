@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class PersonController {
     final PersonService personService;
     @PostMapping
-    public PersonDto addPerson(@RequestBody PersonDto personDto) {
+    public boolean addPerson(@RequestBody PersonDto personDto) {
         return personService.addPerson(personDto);
 
     }

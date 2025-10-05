@@ -1,20 +1,16 @@
 package cohort_65.java.personserviceclasswork.person.model;
 
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor @NoArgsConstructor
 @Entity
-
-
+@Inheritance(strategy = InheritanceType.JOINED)
+@EqualsAndHashCode(of ="id")
 public class Person {
     @Id
     Integer id;
